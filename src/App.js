@@ -86,9 +86,29 @@ class Clock extends React.Component {
     }
 }
 
+function ActionLink() {
+    /*
+      eは合成(synthetic)イベントです。
+      合成イベントはW3Cの仕様に沿って定義しているので、ブラウザ間の互換性ある。
+     */
+    function handleClick(e) {
+        // Reactではfalse返してもデフォルトの動作を抑制することができない
+        e.preventDefault();
+        console.log('The link was clicked.');
+    }
+
+    return (
+        <a href="#" onClick={handleClick}>Click me</a>
+    );
+}
+
 function App() {
     return (
-        <Clock />
+        <div>
+          <Clock />
+          <button onClick={() => console.log("aaa")}>Activate Lasers</button>
+          <ActionLink />
+        </div>
     );
 }
 
