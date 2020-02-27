@@ -102,12 +102,48 @@ function ActionLink() {
     );
 }
 
+/*
+  DOM生成後にaddEventListenerを呼び出す必要はない。
+  => 最初にレンダリングされる際にリスナを指定するようにしてください。
+*/
+class Toggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {isToggleOn: true};
+
+        // This binding is necessary to make `this` work in the callback
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    render() {
+        return (
+            <button onClick={this.handleClick}>
+              {this.state.isToggleOn ? 'ON' : 'OFF'}
+            </button>
+        );
+    }
+
+    /*
+      JavaScriptのメソッドは、thisをデフォルトでバインドしません。
+      onClick={this.handleClick}のとき...
+      https://www.w3schools.com/react/react_events.asp
+    */
+    handleClick() {
+        this.setState(state => ({
+            isToggleOn: !state.isToggleOn
+        }));
+    }
+}
+
 function App() {
     return (
         <div>
           <Clock />
           <button onClick={() => console.log("aaa")}>Activate Lasers</button>
+          <br/>
           <ActionLink />
+          <br/>
+          <Toggle />
         </div>
     );
 }
