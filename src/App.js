@@ -165,6 +165,41 @@ class NameForm extends React.Component {
     }
 }
 
+class FlavorForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {value: 'cocount'};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                Pick your favorite flavor:
+                <select value={this.state.value} onChange={this.handleChange}>
+                  <option value="grapefruit">Grapefruit</option>
+                  <option value="lime">Lime</option>
+                  <option value="cocount">Cocount</option>
+                  <option value="mango">Mango</option>
+                </select>
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+        );
+    }
+
+    handleChange(e) {
+        this.setState({value: e.target.value});
+    }
+
+    handleSubmit(e) {
+        alert('Your favorite flavor is: ' + this.state.value);
+        e.preventDefault();
+    }
+}
+
 function App() {
     return (
         <div>
@@ -176,6 +211,8 @@ function App() {
           <Toggle />
           <br/>
           <NameForm />
+          <br/>
+          <FlavorForm />
         </div>
     );
 }
